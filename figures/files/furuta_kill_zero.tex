@@ -1,0 +1,174 @@
+\begin{tikzpicture}[font=\footnotesize]
+\begin{groupplot}[
+  group style={
+    group size=6 by 4, % 6 columns by 4 rows
+    vertical sep=2mm,
+    horizontal sep=1.5mm,
+    y descriptions at=edge left,
+    x descriptions at=edge bottom,
+    group name=mygroup,
+    /tikz/line join=bevel,
+  },
+  yticklabel style={
+    /pgf/number format/fixed,
+    /pgf/number format/precision=1,
+    /pgf/number format/zerofill,
+  },
+  x label style={at={(axis description cs:0.5,-0.3)},anchor=north},
+  width = 0.23\textwidth,
+  height = 3cm,
+  xmin=\tmin, xmax=\tmax,
+  ymin=\xmin, ymax=\xmax,
+  grid = major,
+  grid style = {black!20, densely dashed},
+  xtick = {1,1.5,2,2.5},
+  xticklabels = {{\,1},1.5,2,{2.5\,\,}},
+  ylabel={$\theta\;[\mathrm{rad}]$},
+  xlabel={$t$},
+  title style={at={(0.5,0.9)}, anchor=south},
+  every axis y label/.style={
+    at={(-0.25,0.5)}, anchor=south, align=center, rotate=90,
+  },
+]
+
+%% ROW 1a
+\nextgroupplot[
+/tikz/line join=bevel,
+title=\texttt{GraphLQR}{},
+]
+\addplot[very thin, baselineControllerColor] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/disturbance/baseline.csv};
+\addplot[thick, firstcol] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/disturbance/graph_lqr.csv};
+
+% Manual legend for the first subplot
+\node at (rel axis cs:0.95,0.95) [
+    anchor=north east,
+    fill=white,
+    draw=black,
+    align=left,
+    inner sep=1pt,
+    font=\tiny
+] {
+    \tikz[baseline=-0.7ex] {\draw[baselineControllerColor, very thin] (0,0) -- (1.5em,0) node (line) {};}\enskip \text{Baseline controller}
+};
+
+
+\nextgroupplot[title=\texttt{DMAC}{}]
+\addplot[very thin, baselineControllerColor] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/disturbance/baseline.csv};
+\addplot[thick, firstcol, line join=bevel] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/disturbance/dmac.csv};
+
+\nextgroupplot[title=\texttt{DMAI}{}]
+\addplot[very thin, baselineControllerColor] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/disturbance/baseline.csv};
+\addplot[thick, firstcol,miter limit=1] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/disturbance/dmai.csv};
+
+\nextgroupplot[title=\texttt{DR-MJLS}{}]
+\addplot[very thin, baselineControllerColor] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/disturbance/baseline.csv};
+\addplot[thick, firstcol] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/disturbance/dr_mjls.csv};
+
+\nextgroupplot[title=\texttt{TreeMPC}{}]
+\addplot[very thin, baselineControllerColor] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/disturbance/baseline.csv};
+\addplot[thick, firstcol] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/disturbance/tree_mpc.csv};
+
+\nextgroupplot[title=\texttt{GSS}]
+\addplot[very thin, baselineControllerColor] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/disturbance/baseline.csv};
+\addplot[thick, firstcol] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/disturbance/gss.csv};
+
+
+%% ROW 1b
+\nextgroupplot[height=2.5cm, ylabel={$u\;[\mathrm{Nm}]$}, ymax=\umax, ymin=\umin, 
+ylabel shift={yshift=0.9cm},
+]
+\addplot[very thin, baselineControllerColor] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/disturbance/baseline.csv};
+\addplot[thick, secondcolNew] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/disturbance/graph_lqr.csv};
+\nextgroupplot[height=2.5cm, ymax=\umax, ymin=\umin]
+\addplot[very thin, baselineControllerColor] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/disturbance/baseline.csv};
+\addplot[thick, secondcolNew] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/disturbance/dmac.csv};
+\nextgroupplot[height=2.5cm, ymax=\umax, ymin=\umin]
+\addplot[very thin, baselineControllerColor] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/disturbance/baseline.csv};
+\addplot[thick, secondcolNew] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/disturbance/dmai.csv};
+\nextgroupplot[height=2.5cm, ymax=\umax, ymin=\umin]
+\addplot[very thin, baselineControllerColor] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/disturbance/baseline.csv};
+\addplot[thick, secondcolNew] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/disturbance/dr_mjls.csv};
+\nextgroupplot[height=2.5cm, ymax=\umax, ymin=\umin]
+\addplot[very thin, baselineControllerColor] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/disturbance/baseline.csv};
+\addplot[thick, secondcolNew] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/disturbance/tree_mpc.csv};
+\nextgroupplot[height=2.5cm, ymax=\umax, ymin=\umin]
+\addplot[very thin, baselineControllerColor] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/disturbance/baseline.csv};
+\addplot[thick, secondcolNew] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/disturbance/gss.csv};
+
+
+%% ROW 2a
+\nextgroupplot[
+]
+\addplot[very thin, baselineControllerColor] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/noise/baseline.csv};
+\addplot[thick, firstcol] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/noise/graph_lqr.csv};
+
+\nextgroupplot[]
+\addplot[very thin, baselineControllerColor] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/noise/baseline.csv};
+\addplot[thick, firstcol] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/noise/dmac.csv};
+
+\nextgroupplot[]
+\addplot[very thin, baselineControllerColor] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/noise/baseline.csv};
+\addplot[thick, firstcol] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/noise/dmai.csv};
+
+\nextgroupplot[]
+\addplot[very thin, baselineControllerColor] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/noise/baseline.csv};
+\addplot[thick, firstcol] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/noise/dr_mjls.csv};
+
+\nextgroupplot[]
+\addplot[very thin, baselineControllerColor] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/noise/baseline.csv};
+\addplot[thick, firstcol] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/noise/tree_mpc.csv};
+
+\nextgroupplot[]
+\addplot[very thin, baselineControllerColor] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/noise/baseline.csv};
+\addplot[thick, firstcol] table[x=t, y=x1, col sep=comma] {../data/furuta/kill_zero/noise/gss.csv};
+
+
+%% ROW 2b
+\nextgroupplot[height=2.5cm, ylabel={$u\;[\mathrm{Nm}]$}, ymax=\umax, ymin=\umin,
+]
+\addplot[very thin, baselineControllerColor] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/noise/baseline.csv};
+\addplot[thick, secondcolNew] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/noise/graph_lqr.csv};
+\nextgroupplot[height=2.5cm, ymax=\umax, ymin=\umin]
+\addplot[very thin, baselineControllerColor] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/noise/baseline.csv};
+\addplot[thick, secondcolNew] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/noise/dmac.csv};
+\nextgroupplot[height=2.5cm, ymax=\umax, ymin=\umin]
+\addplot[very thin, baselineControllerColor] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/noise/baseline.csv};
+\addplot[thick, secondcolNew] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/noise/dmai.csv};
+\nextgroupplot[height=2.5cm, ymax=\umax, ymin=\umin]
+\addplot[very thin, baselineControllerColor] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/noise/baseline.csv};
+\addplot[thick, secondcolNew] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/noise/dr_mjls.csv};
+\nextgroupplot[height=2.5cm, ymax=\umax, ymin=\umin]
+\addplot[very thin, baselineControllerColor] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/noise/baseline.csv};
+\addplot[thick, secondcolNew] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/noise/tree_mpc.csv};
+\nextgroupplot[height=2.5cm, ymax=\umax, ymin=\umin]
+\addplot[very thin, baselineControllerColor] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/noise/baseline.csv};
+\addplot[thick, secondcolNew] table[x=t, y=u1, col sep=comma] {../data/furuta/kill_zero/noise/gss.csv};
+
+
+\end{groupplot}
+
+\begin{scope}
+    \coordinate (DisturbanceTopRight)    at ($(mygroup c6r1.north east) + (0.1cm,0)$);
+    \coordinate (DisturbanceBottomRight) at ($(mygroup c6r2.south east) + (0.1cm,0)$);
+    \draw[decorate,decoration={brace,amplitude=6pt,mirror}]
+          (DisturbanceBottomRight) -- (DisturbanceTopRight)
+          node[midway,xshift=0.4cm,rotate=90] {Disturbance};
+
+    \coordinate (NoiseTopRight)    at ($(mygroup c6r3.north east) + (0.1cm,0)$);
+    \coordinate (NoiseBottomRight) at ($(mygroup c6r4.south east) + (0.1cm,0)$);
+    \draw[decorate,decoration={brace,amplitude=6pt,mirror}]
+          (NoiseBottomRight) -- (NoiseTopRight)
+          node[midway,xshift=0.4cm,rotate=90] {Noise};
+
+
+    \node[
+      anchor=east,
+      font=\footnotesize,
+      xshift=2mm,
+      yshift=-6.5mm
+    ] at ([yshift=0.9ex]mygroup c6r4.south east) {$\mathrm{s}$};
+    
+
+\end{scope}
+
+\end{tikzpicture}

@@ -1,0 +1,61 @@
+\begin{tikzpicture}[>=stealth]
+\footnotesize
+
+
+\begin{axis}[
+    width=0.6\columnwidth,
+    height=3.25cm,
+    enlargelimits=false,
+    xlabel={$\nicefrac{\bar{t}}{T}$},
+    x label style={at={(axis description cs:0.375,-0.125)},anchor=north},
+    grid = major,
+    grid style = {black!20, densely dashed},
+    ylabel = {$t_\mathrm{conv}\;[\mathrm{ms}]$},
+    yticklabel={
+        \pgfmathparse{1000*\tick}%
+        \pgfmathprintnumber{\pgfmathresult}
+    },
+    ytick = {0,0.05,0.1,0.15,0.2},
+    yticklabels = {0,\empty,100,\empty,200},
+    scaled ticks=false,
+    ymin=0, ymax=0.2,
+    ytick={0,0.05,0.1,0.15,0.2},
+    xmin=0.001, xmax=0.005,
+    xtick={0.001, 0.002, 0.003, 0.004, 0.005},
+    xticklabels={1, 2, 3, 4, 5},
+    title style={at={(0.5,0)}, anchor=north, yshift=-8ex, align=center},
+    legend columns = 3,
+    legend style={draw=none, at={(-0.05, 1.05)}, anchor=south},
+    /tikz/every even column/.append style={column sep=0.3cm}
+]
+
+
+\addplot[baselineControllerColor] table[x=points, y=mean_convergence_time, col sep=comma] {../data/motor/output_feedback/metrics_open_loop.csv};
+
+\addplot[thick, secondcol, mark=*, mark size=0.6pt, smooth, densely dashed, mark options={solid}] table[x=points, y=mean_convergence_time, col sep=comma] {../data/motor/output_feedback/metrics_nominal_kill.csv};
+
+\addplot[thick, fifthcol, mark=*, mark size=0.6pt, smooth, densely dashed, mark options={solid}] table[x=points, y=mean_convergence_time, col sep=comma] {../data/motor/output_feedback/metrics_nominal_skip.csv};
+
+\addplot[thick, thirdcol, mark=*, mark size=0.6pt, smooth, mark options={solid}] table[x=points, y=mean_convergence_time, col sep=comma] {../data/motor/output_feedback/metrics_streamadapt_skip.csv};
+
+\addplot[thick, firstcol, mark=*, mark size=0.6pt, smooth, mark options={solid}] table[x=points, y=mean_convergence_time, col sep=comma] {../data/motor/output_feedback/metrics_dmai_kill.csv};
+
+\end{axis}
+
+
+\node at ($(current axis.right of east) + (0.5mm, 0cm)$) [
+        anchor= west,
+        inner sep=1pt,
+        font=\scriptsize,
+    ] {
+    \shortstack[l]{%
+    \tikz[baseline=-0.6ex]\draw[baselineControllerColor] (0,0)--(1.8em,0); \enskip Open Loop \\
+    \tikz[baseline=-0.6ex]\draw[thick, secondcol, densely dashed] (0,0)--node[midway, draw, fill, circle, minimum size=1.2pt, inner sep=0pt, solid] {}(1.8em,0); \enskip Nominal (\Kill{}) \\
+    \tikz[baseline=-0.6ex]\draw[thick, fifthcol,densely dashed] (0,0)--node[midway, draw, fill, circle, minimum size=1.2pt, inner sep=0pt, solid] {}(1.8em,0); \enskip Nominal (\Skip{}) \\
+    \tikz[baseline=-0.6ex]\draw[thick, firstcol] (0,0)--node[midway, draw, fill, circle, minimum size=1.2pt, inner sep=0pt, solid] {}(1.8em,0); \enskip \texttt{DMAI}{} (\Kill{}) \\
+    \tikz[baseline=-0.6ex]\draw[thick, thirdcol] (0,0)--node[midway, draw, fill, circle, minimum size=1.2pt, inner sep=0pt, solid] {}(1.8em,0); \enskip \texttt{StrAdapt} (\Skip{})
+    }
+    };
+
+
+\end{tikzpicture} 

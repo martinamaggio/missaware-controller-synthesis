@@ -1,0 +1,241 @@
+\begin{tikzpicture}[font=\footnotesize]
+\begin{groupplot}[
+  group style={
+    group size=6 by 2, 
+    vertical sep=2mm,
+    horizontal sep=2.5mm,
+    y descriptions at=edge left,
+    x descriptions at=edge bottom,
+    group name=mygroup,
+  },
+  scaled x ticks=false,
+  xtick = {0,0.01,0.02,0.03,0.04},
+  xticklabels={{\,\,0},\empty,20,\empty,{40\,\,}}, %spaces for separating the labels of neighboring plots
+  yticklabel style={
+    /pgf/number format/fixed,
+    /pgf/number format/precision=0,
+    /pgf/number format/zerofill,
+  },
+  x label style={at={(axis description cs:0.5,-0.3)},anchor=north},
+  width = 0.23\textwidth,
+  height = 3cm,
+  xmin=\tminmotor, xmax=\tmaxmotor,
+  ymin=\xminmotor, ymax=\xmaxmotor,
+  grid = major,
+  grid style = {black!20, densely dashed},
+  ylabel={$x\;[\mathrm{A}]$},
+  xlabel={$t$},
+  title style={at={(0.5,0.9)}, anchor=south},
+  every axis y label/.style={
+    at={(-0.25,0.5)}, anchor=south, align=center, rotate=90,
+},
+ legend style={
+    draw=none, 
+    at={(1.05, 1.05)}, 
+    anchor=south,
+    },
+]
+
+%% ROW 1a
+\nextgroupplot[
+title={Open Loop},
+]
+\addplot[thick, colsecondstate] table[x=t, y=x2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/open_loop.csv};
+\addplot[thick, colfirststate] table[x=t, y=x1, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/open_loop.csv};
+
+
+\nextgroupplot[title=\texttt{GraphLQR}{}]
+\addplot[name path=a, colfirststate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xlb3, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/graph_lqr.csv};
+\addplot[name path=b, colfirststate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xub3, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/graph_lqr.csv};
+\addplot[colfirststate, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colfirststate] table[x=t, y=x3, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/graph_lqr.csv};
+
+\addplot[name path=a, colsecondstate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xlb2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/graph_lqr.csv};
+\addplot[name path=b, colsecondstate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xub2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/graph_lqr.csv};
+\addplot[colsecondstate, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colsecondstate] table[x=t, y=x2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/graph_lqr.csv};
+
+
+
+
+
+\nextgroupplot[title=\texttt{DMAC}{}]
+
+\addplot[name path=a, colfirststate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xlb3, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dmac.csv};
+\addplot[name path=b, colfirststate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xub3, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dmac.csv};
+\addplot[colfirststate, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colfirststate] table[x=t, y=x3, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dmac.csv};
+
+\addplot[name path=a, colsecondstate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xlb2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dmac.csv};
+\addplot[name path=b, colsecondstate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xub2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dmac.csv};
+\addplot[colsecondstate, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colsecondstate] table[x=t, y=x2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dmac.csv};
+
+
+
+\nextgroupplot[title=\texttt{DR-MJLS}{}]
+\addplot[name path=a, colfirststate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xlb3, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dr_mjls.csv};
+\addplot[name path=b, colfirststate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xub3, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dr_mjls.csv};
+\addplot[colfirststate, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colfirststate] table[x=t, y=x3, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dr_mjls.csv};
+
+\addplot[name path=a, colsecondstate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xlb2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dr_mjls.csv};
+\addplot[name path=b, colsecondstate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xub2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dr_mjls.csv};
+\addplot[colsecondstate, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colsecondstate] table[x=t, y=x2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dr_mjls.csv};
+
+
+
+
+\nextgroupplot[title=\texttt{TreeMPC}{}]
+\addplot[name path=a, colfirststate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xlb3, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/tree_mpc.csv};
+\addplot[name path=b, colfirststate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xub3, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/tree_mpc.csv};
+\addplot[colfirststate, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colfirststate] table[x=t, y=x3, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/tree_mpc.csv};
+
+\addplot[name path=a, colsecondstate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xlb2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/tree_mpc.csv};
+\addplot[name path=b, colsecondstate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xub2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/tree_mpc.csv};
+\addplot[colsecondstate, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colsecondstate] table[x=t, y=x2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/tree_mpc.csv};
+
+
+
+\nextgroupplot[title=\texttt{GSS}]
+\addplot[name path=a, colfirststate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xlb3, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/gss.csv};
+\addplot[name path=b, colfirststate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xub3, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/gss.csv};
+\addplot[colfirststate, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colfirststate] table[x=t, y=x3, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/gss.csv};
+
+\addplot[name path=a, colsecondstate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xlb2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/gss.csv};
+\addplot[name path=b, colsecondstate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xub2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/gss.csv};
+\addplot[colsecondstate, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colsecondstate] table[x=t, y=x2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/gss.csv};
+
+
+
+
+%% ROW 1b
+\nextgroupplot[height=2.5cm, ylabel={$u\;[\mathrm{V}]$}, ymax=0.6, ymin=-0.6, 
+yticklabel style={%colsecondstate,
+/pgf/number format/fixed,
+/pgf/number format/precision=1,
+/pgf/number format/zerofill,
+},
+ylabel shift={yshift=0.9cm},
+]
+\addplot[thick, colsecondinput] table[x=t, y=u2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/open_loop.csv};
+\addplot[thick, colfirstinput] table[x=t, y=u1, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/open_loop.csv};
+
+
+\nextgroupplot[height=2.5cm, ymax=0.6, ymin=-0.6]
+\addplot[name path=a, colsecondinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=ulb2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/graph_lqr.csv};
+\addplot[name path=b, colsecondinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=uub2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/graph_lqr.csv};
+\addplot[colsecondinput, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colsecondinput] table[x=t, y=u2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/graph_lqr.csv};
+
+\addplot[name path=a, colfirstinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=ulb1, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/graph_lqr.csv};
+\addplot[name path=b, colfirstinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=uub1, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/graph_lqr.csv};
+\addplot[colfirstinput, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colfirstinput] table[x=t, y=u1, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/graph_lqr.csv};
+
+
+\nextgroupplot[height=2.5cm, ymax=0.6, ymin=-0.6]
+\addplot[name path=a, colsecondinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=ulb2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dmac.csv};
+\addplot[name path=b, colsecondinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=uub2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dmac.csv};
+\addplot[colsecondinput, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colsecondinput] table[x=t, y=u2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dmac.csv};
+
+\addplot[name path=a, colfirstinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=ulb1, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dmac.csv};
+\addplot[name path=b, colfirstinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=uub1, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dmac.csv};
+\addplot[colfirstinput, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colfirstinput] table[x=t, y=u1, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dmac.csv};
+
+
+
+\nextgroupplot[height=2.5cm, ymax=0.6, ymin=-0.6]
+\addplot[name path=a, colsecondinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=ulb2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dr_mjls.csv};
+\addplot[name path=b, colsecondinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=uub2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dr_mjls.csv};
+\addplot[colsecondinput, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colsecondinput] table[x=t, y=u2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dr_mjls.csv};
+
+\addplot[name path=a, colfirstinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=ulb1, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dr_mjls.csv};
+\addplot[name path=b, colfirstinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=uub1, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dr_mjls.csv};
+\addplot[colfirstinput, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colfirstinput] table[x=t, y=u1, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/dr_mjls.csv};
+
+
+\nextgroupplot[height=2.5cm, ymax=0.6, ymin=-0.6]
+\addplot[name path=a, colsecondinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=ulb2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/tree_mpc.csv};
+\addplot[name path=b, colsecondinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=uub2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/tree_mpc.csv};
+\addplot[colsecondinput, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colsecondinput] table[x=t, y=u2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/tree_mpc.csv};
+
+\addplot[name path=a, colfirstinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=ulb1, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/tree_mpc.csv};
+\addplot[name path=b, colfirstinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=uub1, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/tree_mpc.csv};
+\addplot[colfirstinput, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colfirstinput] table[x=t, y=u1, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/tree_mpc.csv};
+
+
+\nextgroupplot[height=2.5cm, ymax=0.6, ymin=-0.6]
+\addplot[name path=a, colsecondinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=ulb2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/gss.csv};
+\addplot[name path=b, colsecondinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=uub2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/gss.csv};
+\addplot[colsecondinput, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colsecondinput] table[x=t, y=u2, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/gss.csv};
+
+\addplot[name path=a, colfirstinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=ulb1, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/gss.csv};
+\addplot[name path=b, colfirstinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=uub1, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/gss.csv};
+\addplot[colfirstinput, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colfirstinput] table[x=t, y=u1, col sep=comma] {../data/motor/varying_p_miss_kill_zero/6/gss.csv};
+
+\end{groupplot}
+
+\node[
+  anchor=west,
+  font=\footnotesize,
+  xshift=-6mm,
+  yshift=-6.5mm
+] at ([yshift=0.9ex]mygroup c6r2.south east) {$\mathrm{ms}$};
+
+
+
+\end{tikzpicture}

@@ -1,0 +1,54 @@
+% creates the figures of the accompanying paper from data in data/
+
+\documentclass[lettersize,journal]{IEEEtran}
+\input{files/preamble.tex}
+
+\begin{document}
+
+\begin{figure*}[p]
+    \centering
+    
+    \input{files/furuta_kill_zero}
+    \vspace{-0.5cm}
+    \caption{Furuta pendulum: Trajectories of pendulum angle $\theta(t)$ and system input $u(t)$ with different disturbance signals and a common sequence $(\mu[k])$, using \Kill{} and \Zero{}.}
+
+    \vspace{0.5cm}
+    \input{files/furuta_kill_hold}
+    \vspace{-0.5cm}
+    \caption{Furuta pendulum: Trajectories of $\theta(t)$ and $u(t)$ with different disturbance signals and a common sequence $(\mu[k])$, using \Kill{} and \Hold{}.}
+
+    \vspace{0.5cm}
+    \input{files/furuta_skip}
+    \caption{Furuta pendulum: Trajectories of $\theta(t)$ and $u(t)$ with different disturbance signals and a common sequence $(\mu[k])$ for some of the applicable controllers, using \Skip{} and \Zero{} (left) or \Skip{} and \Hold{} (right).}
+\end{figure*}
+
+
+\begin{figure*}[p]
+    \centering
+
+    \input{files/motor_example1_trajectories.tex}
+    \vspace{-0.5cm}
+    \caption{Electric motor: State trajectories $i_\mathrm{d}(t)$ ({\protect\tikz[baseline=-0.5ex] \protect\draw[colfirststate,thick] (0,0) -- (0.35,0);}), $i_\mathrm{q}(t)$ ({\protect\tikz[baseline=-0.5ex] \protect\draw[colsecondstate,thick] (0,0) -- (0.35,0);})
+    and inputs $u_\mathrm{d}(t)$ ({\protect\tikz[baseline=-0.5ex] \protect\draw[colfirstinput,thick] (0,0) -- (0.35,0);}), $u_\mathrm{q}(t)$ ({\protect\tikz[baseline=-0.5ex] \protect\draw[colsecondinput,thick] (0,0) -- (0.35,0);}) with offset disturbance, using \Kill{} and \Zero{}. The 0.1--0.9 quantiles are shown with opacity. The trajectories of $\omega_\mathrm{el}(t)$ are omitted.}
+    \vspace{0.5cm}
+
+    \input{files/motor_example1_costs.tex}
+    \vspace{-0.1cm}
+    \caption{Electric motor: Cost ratio $\nicefrac{\Bar{J}}{J_\mathrm{ol}}$ against different probabilities $p$ of deadline misses.} 
+    
+    \vspace{2cm}
+
+    \input{files/motor_example2_trajectories.tex}
+    \vspace{-0.2cm}
+    \caption{Electric motor: Trajectories and 0.1--0.9 quantiles of states $i_\mathrm{d}(t)$ ({\protect\tikz[baseline=-0.5ex] \protect\draw[colfirststate,thick] (0,0) -- (0.35,0);}), $i_\mathrm{q}(t)$ ({\protect\tikz[baseline=-0.5ex] \protect\draw[colsecondstate,thick] (0,0) -- (0.35,0);})
+    and inputs $u_\mathrm{d}(t)$ ({\protect\tikz[baseline=-0.5ex] \protect\draw[colfirstinput,thick] (0,0) -- (0.35,0);}), $u_\mathrm{q}(t)$ ({\protect\tikz[baseline=-0.5ex] \protect\draw[colsecondinput,thick] (0,0) -- (0.35,0);}) controlled by output-feedback at an upper bound of the job response time $\bar{t} = 2.5\,T$. The trajectories of $\omega_\mathrm{el}(t)$ are omitted.}
+    \vspace{0.5cm}
+
+    \input{files/motor_example2_tconv.tex}
+    \vspace{-0.25cm}
+    \caption{Electric motor: Convergence times $t_\mathrm{conv}$ against different upper bounds of the job response times $\bar{t}$.}
+
+\end{figure*}
+
+
+\end{document}
