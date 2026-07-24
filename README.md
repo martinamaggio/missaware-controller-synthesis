@@ -1,4 +1,4 @@
-# Framework for the comparison of controller synthesis methods with deadline-miss awareness
+# Framework for the Comparison of Controller Synthesis Methods with Deadline-Miss Awareness
 
 ## Overview
 
@@ -28,7 +28,7 @@ Make sure all required software is added to your MATLAB path by following the se
 The code was tested using MATLAB R2022 (9.13.0.2320565), YALMIP R20230622, MOSEK 10.1.21 and JitterTime 1.0.
 
 
-## Setup instructions
+## Setup Instructions
 
 These instructions assume that MATLAB is already installed.
 
@@ -87,7 +87,7 @@ Then, add it to the MATLAB path. In the MATLAB command window, run:
 
 ## Usage
 
-### How to run experiments
+### Reproducing the Results
 
 In MATLAB open the folder `missaware-controller-synthesis`, then run the script:
 
@@ -111,12 +111,14 @@ Generating a new experiment script requires the definition of system, simulation
 The function `experimental/do_experiment` runs the simulations and evaluates and saves the data.
 See the pre-defined scripts for an example of how to set up an experiment script.
 
-### How to add additional controllers
+## Extending the Evaluation Framework
+
+### How to Add Additional Controllers
 
 Controller synthesis methods can be added using the setup function template `controllers/template/setup_template.m`.
 The arguments of the setup function needed for the respective synthesis method are submitted in the list of controllers and as outputs the function has to return a control wrapper function that is called for each periodic control instance and the initial internal controller state.
 
-### How to add additional plants
+### How to Add Additional Plants
 
 Plant models can be added using the function templates in the folder `model/template` and `controllers/template`. The files include:
 - `model/template/template_at_op.m`: Defines when the plant is close to its operating point, used in the function `metrics/metric_recovery_time.m`.
