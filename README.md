@@ -16,10 +16,15 @@ If you use this code, please cite the complementary paper:
 
 ## Requirements
 
-The controller synthesis code requires a standard MATLAB installation and the following:
+The controller synthesis code requires a standard MATLAB installation.
+
+The controllers _DR-MJLS, GraphLQR, GSS and TreeMPC_ also need the following optimisation solvers:
 
 - [YALMIP](https://github.com/yalmip/YALMIP/releases#release-R20230622)
 - [MOSEK](https://www.mosek.com/downloads/10.1.21/)
+
+The _DMAC_ controller needs the JitterTime toolbox:
+
 - [JitterTime](https://github.com/ControlLTH/JitterTime)
 
 Installation procedures and setup are described on the respective webpages and need to be configured to work with MATLAB.
