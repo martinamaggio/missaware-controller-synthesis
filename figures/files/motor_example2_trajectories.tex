@@ -1,0 +1,209 @@
+\begin{tikzpicture}[font=\footnotesize]
+\begin{groupplot}[
+  group style={
+    group size=5 by 2, 
+    vertical sep=2mm,
+    horizontal sep=5mm,
+    y descriptions at=edge left,
+    x descriptions at=edge bottom,
+    group name=mygroup,
+  },
+  xtick = {0,0.025,0.05,0.075,0.1},
+  xticklabels = {{\,\,0}, \empty, 50, \empty, {100\,\,}},
+  yticklabel style={
+    /pgf/number format/fixed,
+    /pgf/number format/precision=0,
+    /pgf/number format/zerofill,
+  },
+  width = 0.23\textwidth,
+  height = 3cm,
+  xmin=0, xmax=0.1,
+  ymin=\xminmotor, ymax=\xmaxmotor,
+  grid = major,
+  grid style = {black!20, densely dashed},
+  ylabel={$x\;[\mathrm{A}]$},
+  xlabel={$t$},
+  x label style={at={(axis description cs:0.5,-0.3)},anchor=north},
+  title style={at={(0.5,0.9)}, anchor=south},
+  every axis y label/.style={
+    at={(-0.25,0.5)}, anchor=south, align=center, rotate=90,
+},
+ legend style={
+    draw=none, 
+    at={(1.05, 1.05)}, 
+    anchor=south,
+    },
+]
+
+%% ROW 1a
+\nextgroupplot[
+title={Open Loop},
+xmax = 0.1,
+]
+\addplot[thick, colsecondstate] table[x=t, y=x2, col sep=comma] {../data/motor/output_feedback/7/open_loop.csv};
+\addplot[thick, colfirststate] table[x=t, y=x1, col sep=comma] {../data/motor/output_feedback/7/open_loop.csv};
+
+
+\nextgroupplot[title={Nominal (\Kill{})}]
+
+\addplot[name path=a, colsecondstate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xlb2, col sep=comma] {../data/motor/output_feedback/7/nominal_kill.csv};
+\addplot[name path=b, colsecondstate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xub2, col sep=comma] {../data/motor/output_feedback/7/nominal_kill.csv};
+\addplot[colsecondstate, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colsecondstate] table[x=t, y=x2, col sep=comma] {../data/motor/output_feedback/7/nominal_kill.csv};
+
+\addplot[name path=a, colfirststate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xlb1, col sep=comma] {../data/motor/output_feedback/7/nominal_kill.csv};
+\addplot[name path=b, colfirststate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xub1, col sep=comma] {../data/motor/output_feedback/7/nominal_kill.csv};
+\addplot[colfirststate, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colfirststate] table[x=t, y=x1, col sep=comma] {../data/motor/output_feedback/7/nominal_kill.csv};
+
+
+\nextgroupplot[title={Nominal (\Skip{})}]
+
+\addplot[name path=a, colsecondstate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xlb2, col sep=comma] {../data/motor/output_feedback/7/nominal_skip.csv};
+\addplot[name path=b, colsecondstate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xub2, col sep=comma] {../data/motor/output_feedback/7/nominal_skip.csv};
+\addplot[colsecondstate, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colsecondstate] table[x=t, y=x2, col sep=comma] {../data/motor/output_feedback/7/nominal_skip.csv};
+
+\addplot[name path=a, colfirststate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xlb1, col sep=comma] {../data/motor/output_feedback/7/nominal_skip.csv};
+\addplot[name path=b, colfirststate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xub1, col sep=comma] {../data/motor/output_feedback/7/nominal_skip.csv};
+\addplot[colfirststate, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colfirststate] table[x=t, y=x1, col sep=comma] {../data/motor/output_feedback/7/nominal_skip.csv};
+
+
+
+
+
+\nextgroupplot[title={\texttt{DMAI}{} (\Kill{})}]
+
+\addplot[name path=a, colsecondstate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xlb2, col sep=comma] {../data/motor/output_feedback/7/dmai_kill.csv};
+\addplot[name path=b, colsecondstate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xub2, col sep=comma] {../data/motor/output_feedback/7/dmai_kill.csv};
+\addplot[colsecondstate, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colsecondstate] table[x=t, y=x2, col sep=comma] {../data/motor/output_feedback/7/dmai_kill.csv};
+
+\addplot[name path=a, colfirststate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xlb1, col sep=comma] {../data/motor/output_feedback/7/dmai_kill.csv};
+\addplot[name path=b, colfirststate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xub1, col sep=comma] {../data/motor/output_feedback/7/dmai_kill.csv};
+\addplot[colfirststate, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colfirststate] table[x=t, y=x1, col sep=comma] {../data/motor/output_feedback/7/dmai_kill.csv};
+
+
+\nextgroupplot[title={\texttt{StrAdapt} (\Skip{})}]
+
+\addplot[name path=a, colsecondstate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xlb2, col sep=comma] {../data/motor/output_feedback/7/streamadapt_skip.csv};
+\addplot[name path=b, colsecondstate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xub2, col sep=comma] {../data/motor/output_feedback/7/streamadapt_skip.csv};
+\addplot[colsecondstate, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colsecondstate] table[x=t, y=x2, col sep=comma] {../data/motor/output_feedback/7/streamadapt_skip.csv};
+
+\addplot[name path=a, colfirststate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xlb1, col sep=comma] {../data/motor/output_feedback/7/streamadapt_skip.csv};
+\addplot[name path=b, colfirststate, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=xub1, col sep=comma] {../data/motor/output_feedback/7/streamadapt_skip.csv};
+\addplot[colfirststate, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colfirststate] table[x=t, y=x1, col sep=comma] {../data/motor/output_feedback/7/streamadapt_skip.csv};
+
+
+
+
+%% ROW 1b
+\nextgroupplot[height=2.5cm, ylabel={$u\;[\mathrm{V}]$}, ymax=0.6, ymin=-0.6, 
+yticklabel style={%colsecondinput,
+/pgf/number format/fixed,
+/pgf/number format/precision=1,
+/pgf/number format/zerofill,
+},
+xmax = 0.1,
+ylabel shift={yshift=0.9cm},
+]
+\addplot[thick, colsecondinput] table[x=t, y=u2, col sep=comma] {../data/motor/output_feedback/7/open_loop.csv};
+\addplot[thick, colfirstinput] table[x=t, y=u1, col sep=comma] {../data/motor/output_feedback/7/open_loop.csv};
+
+
+\nextgroupplot[height=2.5cm, ymax=0.6, ymin=-0.6]
+\addplot[name path=a, colsecondinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=ulb2, col sep=comma] {../data/motor/output_feedback/7/nominal_kill.csv};
+\addplot[name path=b, colsecondinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=uub2, col sep=comma] {../data/motor/output_feedback/7/nominal_kill.csv};
+\addplot[colsecondinput, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colsecondinput] table[x=t, y=u2, col sep=comma] {../data/motor/output_feedback/7/nominal_kill.csv};
+
+\addplot[name path=a, colfirstinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=ulb1, col sep=comma] {../data/motor/output_feedback/7/nominal_kill.csv};
+\addplot[name path=b, colfirstinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=uub1, col sep=comma] {../data/motor/output_feedback/7/nominal_kill.csv};
+\addplot[colfirstinput, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colfirstinput] table[x=t, y=u1, col sep=comma] {../data/motor/output_feedback/7/nominal_kill.csv};
+
+
+\nextgroupplot[height=2.5cm, ymax=0.6, ymin=-0.6]
+\addplot[name path=a, colsecondinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=ulb2, col sep=comma] {../data/motor/output_feedback/7/nominal_skip.csv};
+\addplot[name path=b, colsecondinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=uub2, col sep=comma] {../data/motor/output_feedback/7/nominal_skip.csv};
+\addplot[colsecondinput, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colsecondinput] table[x=t, y=u2, col sep=comma] {../data/motor/output_feedback/7/nominal_skip.csv};
+
+\addplot[name path=a, colfirstinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=ulb1, col sep=comma] {../data/motor/output_feedback/7/nominal_skip.csv};
+\addplot[name path=b, colfirstinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=uub1, col sep=comma] {../data/motor/output_feedback/7/nominal_skip.csv};
+\addplot[colfirstinput, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colfirstinput] table[x=t, y=u1, col sep=comma] {../data/motor/output_feedback/7/nominal_skip.csv};
+
+
+
+
+\nextgroupplot[height=2.5cm, ymax=0.6, ymin=-0.6]
+\addplot[name path=a, colsecondinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=ulb2, col sep=comma] {../data/motor/output_feedback/7/dmai_kill.csv};
+\addplot[name path=b, colsecondinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=uub2, col sep=comma] {../data/motor/output_feedback/7/dmai_kill.csv};
+\addplot[colsecondinput, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colsecondinput] table[x=t, y=u2, col sep=comma] {../data/motor/output_feedback/7/dmai_kill.csv};
+
+\addplot[name path=a, colfirstinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=ulb1, col sep=comma] {../data/motor/output_feedback/7/dmai_kill.csv};
+\addplot[name path=b, colfirstinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=uub1, col sep=comma] {../data/motor/output_feedback/7/dmai_kill.csv};
+\addplot[colfirstinput, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colfirstinput] table[x=t, y=u1, col sep=comma] {../data/motor/output_feedback/7/dmai_kill.csv};
+
+\nextgroupplot[height=2.5cm, ymax=0.6, ymin=-0.6]
+\addplot[name path=a, colsecondinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=ulb2, col sep=comma] {../data/motor/output_feedback/7/streamadapt_skip.csv};
+\addplot[name path=b, colsecondinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=uub2, col sep=comma] {../data/motor/output_feedback/7/streamadapt_skip.csv};
+\addplot[colsecondinput, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colsecondinput] table[x=t, y=u2, col sep=comma] {../data/motor/output_feedback/7/streamadapt_skip.csv};
+
+\addplot[name path=a, colfirstinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=ulb1, col sep=comma] {../data/motor/output_feedback/7/streamadapt_skip.csv};
+\addplot[name path=b, colfirstinput, draw opacity=0.5, line width=0.1pt, forget plot]
+ table[x=t, y=uub1, col sep=comma] {../data/motor/output_feedback/7/streamadapt_skip.csv};
+\addplot[colfirstinput, opacity=0.15, forget plot] fill between [of = a and b];
+\addplot[thick, colfirstinput] table[x=t, y=u1, col sep=comma] {../data/motor/output_feedback/7/streamadapt_skip.csv};
+
+
+\end{groupplot}
+
+\node[
+  anchor=west,
+  font=\footnotesize,
+  xshift=3mm,
+  yshift=-6.5mm
+] at ([yshift=0.9ex]mygroup c5r2.south east) {$\mathrm{ms}$};
+
+
+\end{tikzpicture}

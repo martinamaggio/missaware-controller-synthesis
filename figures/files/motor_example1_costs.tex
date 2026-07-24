@@ -1,0 +1,96 @@
+\begin{tikzpicture}[>=stealth]
+\footnotesize
+
+\begin{groupplot}[
+    group style = {
+    group size=2 by 1,
+    xlabels at=edge bottom,
+    ylabels at=edge left,
+    yticklabels at = edge left,
+    horizontal sep=3mm,
+    group name=mygroup,
+    },
+    width=0.575\columnwidth,
+    height=3.25cm,
+    enlargelimits=false,
+    xlabel={$p$},
+    grid = major,
+    grid style = {black!20, densely dashed},
+    xmin=0.0, xmax=1.0,
+    ymin=0.2, ymax=1.1, 
+    xtick={0.0, 0.25, 0.5, 0.75, 1.0},
+    xticklabels={0,\empty,0.5,\empty,1},
+    ytick={0.2, 0.4, 0.6, 0.8, 1.0},
+    yticklabels={0.2,\empty,0.6,\empty ,1.0},    
+    x label style={at={(0.1,-0.15)}, anchor=north west, align=left},
+    title style={at={(0.75,-0.25)},anchor=north },
+    legend columns = 3,
+    legend style={draw=none, at={(-0.05, 1.05)}, anchor=south},
+    /tikz/every even column/.append style={column sep=0.3cm}
+]
+
+\nextgroupplot[
+    yticklabel pos=left, 
+    title={(a) \Kill{}},
+    ylabel = {$\nicefrac{\Bar{J}}{J_\mathrm{ol}}$},
+    scaled ticks=false,
+] 
+
+\addplot[coldmac, thick, forget plot, mark=*, mark size=0.6pt, smooth, mark options={solid}] table[x=points, y=mean_quadratic_cost_to_ol, col sep=comma] {../data/motor/varying_p_miss_kill_zero/metrics_dmac.csv};
+
+\addplot[coltreempc, thick, forget plot, mark=*, mark size=0.6pt, smooth, mark options={solid}] table[x=points, y=mean_quadratic_cost_to_ol, col sep=comma] {../data/motor/varying_p_miss_kill_zero/metrics_tree_mpc.csv};
+
+\addplot[coldrmjls, thick, forget plot,densely dashed, mark=*, mark size=0.6pt, smooth, mark options={solid}] table[x=points, y=mean_quadratic_cost_to_ol, col sep=comma] {../data/motor/varying_p_miss_kill_zero/metrics_dr_mjls.csv};
+
+\addplot[colgss, thick, densely dashed, forget plot, mark=*, mark size=0.6pt, smooth, mark options={solid}] table[x=points, y=mean_quadratic_cost_to_ol, col sep=comma] {../data/motor/varying_p_miss_kill_zero/metrics_gss.csv};
+
+\addplot[colgraphlqr, thick, dotted, forget plot, mark=*, mark size=0.6pt, smooth, mark options={solid}] table[x=points, y=mean_quadratic_cost_to_ol, col sep=comma] {../data/motor/varying_p_miss_kill_zero/metrics_graph_lqr.csv};
+
+\draw[baselineControllerColor, line width = 0.3pt] (axis cs:0.0, 1) -- (axis cs:1.0, 1);
+
+
+
+\nextgroupplot[
+    title={(b) \Skip{}},
+    scaled ticks=false,
+    legend to name = leg_varying_p_miss,
+]
+
+\addplot[coldmac, thick, mark=*, mark size=0.6pt, smooth, mark options={solid}] table[x=points, y=mean_quadratic_cost_to_ol, col sep=comma] {../data/motor/varying_p_miss_skip_zero/metrics_dmac.csv};
+\addlegendentry{\texttt{DMAC}};
+
+\addplot[coldrmjls, thick,densely dashed, mark=*, mark size=0.6pt, smooth, mark options={solid}] table[x=points, y=mean_quadratic_cost_to_ol, col sep=comma] {../data/motor/varying_p_miss_skip_zero/metrics_dr_mjls.csv};
+\addlegendentry{\texttt{DR-MJLS}};
+
+\addplot[coltreempc, thick, mark=*, mark size=0.6pt, smooth, mark options={solid}] table[x=points, y=mean_quadratic_cost_to_ol, col sep=comma] {../data/motor/varying_p_miss_skip_zero/metrics_tree_mpc.csv};
+\addlegendentry{\texttt{TreeMPC}};
+
+\addplot[colgss, thick, densely dashed, mark=*, mark size=0.6pt, smooth, mark options={solid}] table[x=points, y=mean_quadratic_cost_to_ol, col sep=comma] {../data/motor/varying_p_miss_skip_zero/metrics_gss.csv};
+\addlegendentry{\texttt{GSS}};
+
+
+\draw[baselineControllerColor, line width = 0.3pt] (axis cs:0.0, 1) -- (axis cs:1.0, 1);
+
+
+\end{groupplot}
+
+    \node at ($(mygroup c1r1.north west) + (-0.8cm,0.1cm)$) [
+        anchor = south west,
+        inner sep = 1pt,
+        font = \scriptsize,
+        align = left,
+    ] {
+    \tikz[baseline=-0.6ex]\draw[colgraphlqr,thick,dotted] (0,0)--node[midway, draw, fill, circle, minimum size=1.2pt, inner sep=0pt, anchor=center, solid] {}(1.8em,0); 
+    \,\texttt{GraphLQR} \hspace{1.5mm}
+    \tikz[baseline=-0.6ex]\draw[coldmac,thick] (0,0)--node[midway, draw, fill, circle, minimum size=1.2pt, inner sep=0pt, anchor=center, solid] {}(1.8em,0); 
+    \,\texttt{DMAC} \hspace{1.5mm}
+    \tikz[baseline=-0.6ex]\draw[coldrmjls,thick,densely dashed] (0,0)--node[midway, draw, fill, circle, minimum size=1.2pt, inner sep=0pt, anchor=center, solid] {}(1.8em,0);
+    \,\texttt{DR-MJLS} \hspace{1.5mm}
+    \tikz[baseline=-0.6ex]\draw[coltreempc,thick] (0,0)--node[midway, draw, fill, circle, minimum size=1.2pt, inner sep=0pt, anchor=center, solid] {}(1.8em,0); 
+    \,\texttt{TreeMPC} \hspace{1.5mm}
+    \tikz[baseline=-0.6ex]\draw[colgss,thick,densely dashed] (0,0)--node[midway, draw, fill, circle, minimum size=1.2pt, inner sep=0pt, anchor=center, solid] {}(1.8em,0); \,\texttt{GSS} 
+    };
+    
+
+
+\end{tikzpicture} 

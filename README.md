@@ -2,13 +2,14 @@
 
 ## Overview
 
-This framework can be used to compare controller synthesis methods for real-time control systems subject to deadline misses.
+This framework can be used to systematically compare controller synthesis methods for real-time control systems subject to deadline misses.
 The designed controllers can be tested for varying use-cases (i.e., under different assumptions, plants, and real-time settings), and evaluated for different metrics.
+The code includes three example scripts to run different case studies on both a Furuta pendulum and an electric motor.
 The framework is designed to be modular and easily extendable with new controller synthesis methods, plant models and evaluation functions.
 
 If you use this code, please cite the complementary paper:
 > M. Gallant, M. Seidel, P. Pazzaglia, C. Mandrioli, C. Mark, K. Schmidt, F. Allgöwer, M. Maggio, 
-> "Comparing Controller Synthesis Methods with Deadline-Miss Awareness," in ...
+> "Comparing Controller Synthesis Methods with Deadline-Miss Awareness," in IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems (TCAD), 2026 (to appear, accepted at EMSOFT 2026).
 
 **License:** AGPL-3.0
 
@@ -17,14 +18,42 @@ If you use this code, please cite the complementary paper:
 
 The controller synthesis code requires a standard MATLAB installation and the following:
 
-- [YALMIP](https://yalmip.github.io/)
-- [MOSEK](https://www.mosek.com/)
+- [YALMIP](https://github.com/yalmip/YALMIP/releases#release-R20230622)
+- [MOSEK](https://www.mosek.com/downloads/10.1.21/)
 - [JitterTime](https://github.com/ControlLTH/JitterTime)
 
 Installation procedures and setup are described on the respective webpages and need to be configured to work with MATLAB.
-Make sure all required software is added to your MATLAB path.
+Make sure all required software is added to your MATLAB path by following the setup instructions.
 
 The code was tested using MATLAB R2022 (9.13.0.2320565), YALMIP R20230622, MOSEK 10.1.21 and JitterTime 1.0.
+
+
+## Setup instructions
+
+1. **Ensure that all required software/tools listed above are installed.**
+
+2. **Clone the repository:**
+   ```bash
+   git clone https://github.com/martinamaggio/missaware-controller-synthesis
+   cd missaware-controller-synthesis
+   ```
+
+3. **Add the framework and dependencies to the MATLAB path:**
+   ```MATLAB
+   % run these commands inside the MATLAB command window
+   addpath(genpath('/path/to/yalmip'));
+   addpath(genpath('/path/to/mosek'));
+   addpath(genpath('/path/to/jittertime'));
+   addpath(genpath(pwd));
+   savepath;
+   ```
+
+4. **Verify that YALMIP and MOSEK are recognized correctly:**
+   ```MATLAB
+   % run inside the MATLAB command window
+   yalmiptest('mosek')
+   ```
+   Ensure that MOSEK is listed as an available solver for SDP.
 
 
 ## Structure
@@ -41,10 +70,21 @@ The code was tested using MATLAB R2022 (9.13.0.2320565), YALMIP R20230622, MOSEK
 
 ### How to run experiments
 
+In MATLAB open the folder `missaware-controller-synthesis`, then run the script:
+
+```MATLAB
+% run inside the MATLAB command window
+run <name_of_script>
+```
+
 The following pre-defined scripts can be executed:
-- `experimental/run_common_sequence_furuta.m` : Figures 1 - 3 of the paper are created using the data generated when running this script. This runs all controller/strategy combinations with common simulation settings for the Furuta pendulum.
-- `experimental/run_case_study_1.m` : Figures 4 - 5 of the paper are created using the data generated when running this script. This runs the open-loop system and the selected controllers under kill/zero and skip/zero strategies with varying values of p on an electric motor.
-- `experimental/run_case_study_2.m` : Figures 6 - 7 of the paper are created using the data generated when running this script. This runs the open-loop system and the output-feedback deadline-miss-aware controllers and their nominal baseline controller with increasing upper bounds of the control task's response time on an electric motor.
+- `experimental/run_common_sequence_furuta.m` : Figures 1 - 3 of the paper are created using the data generated when running this script. This runs all controller/strategy combinations with common simulation settings for the Furuta pendulum. The run time on the tested platform is approximately 2-3 minutes.
+- `experimental/run_case_study_1.m` : Figures 4 - 5 of the paper are created using the data generated when running this script. This runs the open-loop system and the selected controllers under kill/zero and skip/zero strategies with varying values of p on an electric motor. The run time on the tested platform is approximately 1.5 hours.
+- `experimental/run_case_study_2.m` : Figures 6 - 7 of the paper are created using the data generated when running this script. This runs the open-loop system and the output-feedback deadline-miss-aware controllers and their nominal baseline controller with increasing upper bounds of the control task's response time on an electric motor. The run time on the tested platform is approximately 1.5-2 hours.
+
+The expected output of the pre-defined scripts consists of the status messages in the command window at the beginning of the simulation with each listed controller and of the subsequent evaluation for each controller under all listed metrics (per function call of `do_experiment` that is called multiple times in each script).
+Additionally, each call of `do_experiment` creates a MATLAB figure, plotting the simulated trajectories for each listed controller sequentially.
+The two motor case study scripts also create figures showing the evaluations with respect to the metrics shown in the paper.
 
 Running these scripts generates and saves the data (in `data/`) used for creating the figures of the accompanying paper. To recreate the figures, compile the Latex file `figures/figures.tex`.
 
