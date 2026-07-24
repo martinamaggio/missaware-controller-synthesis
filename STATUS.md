@@ -8,7 +8,7 @@ We are applying for the following three artifact evaluation badges:
 * The repository contains the complete codebase, plant models, controller functions, evaluation metrics, and simulation configurations required to replicate all experiments.
 * This package includes comprehensive documentation detailing the code structure, requirements, installation processes, and instructions on how to use it.
 * All source code and experimental datasets are publicly hosted and distributed under the OSI-approved AGPL-3.0 open-source license.
-* The artifact is stored in the long-term archive [Zenodo](https://zenodo.org), DOI: [https://doi.org/10.5281/zenodo.21531715](https://doi.org/10.5281/zenodo.21531715).
+* The artifact is stored in the long-term archive [Zenodo](https://zenodo.org), DOI: [https://doi.org/10.5281/zenodo.21538114](https://doi.org/10.5281/zenodo.21538114).
 
 ## Reviewed
 
