@@ -40,7 +40,7 @@ Download them an place them in the preferred directory.
  * [MOSEK installation instructions](https://docs.mosek.com/latest/install/installation.html)
  * To install JitterTime you just need to clone the [repo](https://github.com/ControlLTH/JitterTime). From the command line, you can use:
    ```bash
-   git clone git@github.com:ControlLTH/JitterTime.git
+   git clone https://github.com/ControlLTH/JitterTime.git
    ```
 
 Then, if you haven't done it already, add the dependencies to the MATLAB path.
