@@ -30,31 +30,50 @@ The code was tested using MATLAB R2022 (9.13.0.2320565), YALMIP R20230622, MOSEK
 
 ## Setup instructions
 
+These instructions assume that MATLAB is already installed.
+
 1. **Ensure that all required software/tools listed above are installed.**
 
-2. **Clone the repository:**
+Download them an place them in the preferred directory.
+
+ * [YALMIP installation instructions](https://yalmip.github.io/tutorial/installation/)
+ * [MOSEK installation instructions](https://docs.mosek.com/latest/install/installation.html)
+ * To install JitterTime you just need to clone the [repo](https://github.com/ControlLTH/JitterTime). From the command line, you can use:
+   ```bash
+   git clone git@github.com:ControlLTH/JitterTime.git
+   ```
+
+Then, if you haven't done it already, add the dependencies to the MATLAB path.
+In the MATLAB command window, run:
+
+   ```MATLAB
+   addpath(genpath('/path/to/yalmip'));
+   addpath(genpath('/path/to/mosek'));
+   addpath(genpath('/path/to/jittertime'));
+   savepath;
+   ```
+
+2. **Verify that YALMIP and MOSEK are recognized correctly:**
+
+In the MATLAB command window, run:
+   ```MATLAB
+   yalmiptest('mosek')
+   ```
+   Ensure that MOSEK is listed as an available solver for SDP.
+
+3. **Clone this framework and add it to the matlab path:**
+
+Clone the repo with these commands from the command line:
    ```bash
    git clone https://github.com/martinamaggio/missaware-controller-synthesis
    cd missaware-controller-synthesis
    ```
 
-3. **Add the framework and dependencies to the MATLAB path:**
+Then, add it to the MATLAB path. In the MATLAB command window, run:
    ```MATLAB
-   % run these commands inside the MATLAB command window
-   addpath(genpath('/path/to/yalmip'));
-   addpath(genpath('/path/to/mosek'));
-   addpath(genpath('/path/to/jittertime'));
-   addpath(genpath(pwd));
+   addpath(genpath('path/to/missaware-controller-synthesis'));
    savepath;
    ```
-
-4. **Verify that YALMIP and MOSEK are recognized correctly:**
-   ```MATLAB
-   % run inside the MATLAB command window
-   yalmiptest('mosek')
-   ```
-   Ensure that MOSEK is listed as an available solver for SDP.
-
 
 ## Structure
 
