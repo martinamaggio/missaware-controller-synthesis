@@ -37,7 +37,7 @@ These instructions assume that MATLAB is already installed.
 Download them an place them in the preferred directory.
 
  * [YALMIP installation instructions](https://yalmip.github.io/tutorial/installation/)
- * [MOSEK installation instructions](https://docs.mosek.com/latest/install/installation.html)
+ * [MOSEK installation instructions](https://docs.mosek.com/10.1/install/installation.html)
  * To install JitterTime you just need to clone the [repo](https://github.com/ControlLTH/JitterTime). From the command line, you can use:
    ```bash
    git clone https://github.com/ControlLTH/JitterTime.git
