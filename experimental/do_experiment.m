@@ -27,9 +27,10 @@ function results = do_experiment(experiment_name,controller_array,eval_methods,p
     nmc = psys.n_mc;                % number of Monte Carlo simulation runs
     p_quant = psys.quantile_val;    % lower quantile to be plotted if nmc>1
 
-    set(groot,'defaulttextinterpreter','none') 
-    save_path = ['data/',plant_name,'/',experiment_name];
-    if ~exist(save_path,'dir')
+    set(groot,'defaulttextinterpreter','none')
+    repo_root = fileparts(fileparts(mfilename('fullpath')));
+    save_path = fullfile(repo_root, 'data', plant_name, experiment_name);
+    if ~isfolder(save_path)
         mkdir(save_path)
     end
 
