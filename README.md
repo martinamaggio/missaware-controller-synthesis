@@ -17,6 +17,11 @@ If you use this code, please cite the complementary paper:
 ## Requirements
 
 The controller synthesis code requires a standard MATLAB installation.
+Within MATLAB, the following add-ons are needed (instructions to install and manage MATLAB add-ons can be found [here](https://nl.mathworks.com/help/matlab/matlab_env/get-add-ons.html)):
+
+ - Control System Toolbox,
+ - Image Processing Toolbox, and
+ - DSP System Toolbox.
 
 The controllers _DR-MJLS, GraphLQR, GSS and TreeMPC_ also need the following optimisation solvers:
 
@@ -35,7 +40,7 @@ The code was tested using MATLAB R2022 (9.13.0.2320565), YALMIP R20230622, MOSEK
 
 ## Setup Instructions
 
-These instructions assume that MATLAB is already installed.
+These instructions assume that MATLAB is already installed with the needed add-ons.
 
 1. **Ensure that all required software/tools listed above are installed.**
 
