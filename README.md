@@ -100,10 +100,11 @@ Then, add it to the MATLAB path. In the MATLAB command window, run:
 
 ### Reproducing the Results
 
-In MATLAB open the folder `missaware-controller-synthesis`, then run the script:
+In MATLAB open the folder `missaware-controller-synthesis`, then run the script, from the root directory of the project:
 
 ```MATLAB
 % run inside the MATLAB command window
+cd path/to/missaware-controller-synthesis
 run <name_of_script>
 ```
 
