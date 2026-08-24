@@ -117,7 +117,16 @@ The expected output of the pre-defined scripts consists of the status messages i
 Additionally, each call of `do_experiment` creates a MATLAB figure, plotting the simulated trajectories for each listed controller sequentially.
 The two motor case study scripts also create figures showing the evaluations with respect to the metrics shown in the paper.
 
-Running these scripts generates and saves the data (in `data/`) used for creating the figures of the accompanying paper. To recreate the figures, compile the Latex file `figures/figures.tex`.
+Running these scripts generates and saves the experiments data in the folder `data/`.
+Furthermore, it plots figures for all the possible combinations of controllers and overrun and actuator handling strategies.
+For reasons of space, the paper contains only a subset of those.
+To recreate instead the exact same figures of the paper, compile the Latex file `figures/figures.tex`.
+For example, if you use `latexmk`, you can use the following commands from the command line:
+```BASH
+cd path/to/missaware-controller-synthesis/figures
+latexmk figure.tex -pdf
+```
+This will use latex to generate a pdf containing the paper figures.
 
 Generating a new experiment script requires the definition of system, simulation and real-time parameters, and the lists of controllers and evaluation functions.
 The function `experimental/do_experiment` runs the simulations and evaluates and saves the data.
